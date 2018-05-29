@@ -1,11 +1,23 @@
 import React, {Component} from "react"
 import {View, Text, StyleSheet} from "react-native"
 import {white, gray} from "../utils/colors"
+import {getDecks} from "../utils/api";
 
 class DeckList extends Component {
+    state = {
+        decks: []
+    };
+
+    componentDidMount() {
+        getDecks()
+            .then((decks) => this.setState({
+                decks
+            }))
+    }
     render() {
+        console.log(this.state.decks);
         return (
-            <View>
+            <View style={styles.container}>
                 <Text>DeckList</Text>
             </View>
         )
