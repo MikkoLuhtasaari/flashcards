@@ -1,11 +1,16 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet} from "react-native"
-import {white, gray} from "../utils/colors"
-import {getDecks} from "../utils/api";
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
+import {white, gray, blue, black} from "../utils/colors"
+import {getDecks, reset} from "../utils/api";
 
 class DeckList extends Component {
     state = {
         decks: []
+    };
+
+    reset = () => {
+        console.log("Reseting");
+            reset()
     };
 
     componentDidMount() {
@@ -14,11 +19,20 @@ class DeckList extends Component {
                 decks
             }))
     }
+
     render() {
-        console.log(this.state.decks);
+        const decks = this.state.decks;
+        console.log(decks);
         return (
             <View style={styles.container}>
                 <Text>DeckList</Text>
+                {Array.isArray(decks) && decks.length > 0 &&
+                decks.map((deck) => {
+                    console.log(deck)
+                })}
+                <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
+                    <Text style={{color:blue}}>reset</Text>
+                </TouchableOpacity>
             </View>
         )
     }

@@ -10,11 +10,16 @@ export function getDeck(id) {
 }
 
 export function saveDeckTitle(title) {
-    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, title)
+    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({[title]: []}))
 }
 
 export function addCardToDeck(title, card) {
+    // Is stringify necessary
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
         [title]: card
     }))
+}
+
+export function reset() {
+    return AsyncStorage.removeItem(DECK_STORAGE_KEY)
 }
