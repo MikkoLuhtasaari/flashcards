@@ -5,12 +5,11 @@ import {getDecks, reset} from "../utils/api";
 
 class DeckList extends Component {
     state = {
-        decks: ""
     };
 
     reset = () => {
         console.log("Reseting");
-            reset()
+        reset()
     };
 
     componentDidMount() {
@@ -22,8 +21,9 @@ class DeckList extends Component {
 
     render() {
         const decks = this.state.decks;
+        console.log(decks);
         let decksAsJSON = {};
-        if(decks.length !== 0) {
+        if(decks) {
             console.log(JSON.parse(decks));
             decksAsJSON = JSON.parse(decks);
         }
