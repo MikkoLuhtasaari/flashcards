@@ -5,7 +5,7 @@ import {getDecks, reset} from "../utils/api";
 
 class DeckList extends Component {
     state = {
-        decks: []
+        decks: ""
     };
 
     reset = () => {
@@ -22,12 +22,15 @@ class DeckList extends Component {
 
     render() {
         const decks = this.state.decks;
-        console.log(decks);
+        let decksAsJSON = {};
+        if(decks.length !== 0) {
+            console.log(JSON.parse(decks));
+            decksAsJSON = JSON.parse(decks);
+        }
         return (
             <View style={styles.container}>
                 <Text>DeckList</Text>
-                {Array.isArray(decks) && decks.length > 0 &&
-                decks.map((deck) => {
+                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => {
                     console.log(deck)
                 })}
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
