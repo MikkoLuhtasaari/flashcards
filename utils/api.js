@@ -1,4 +1,5 @@
 import {AsyncStorage} from "react-native"
+
 const DECK_STORAGE_KEY = "flashcards:decks";
 
 export function getDecks() {
@@ -10,13 +11,21 @@ export function getDeck(id) {
 }
 
 export function saveDeckTitle(title) {
-    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({[title]: {["questions"]: []}}))
+    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+        [title]: {
+            ["questions"]: []
+        }
+    }))
 }
 
 export function addCardToDeck(title, card) {
-    // Is stringify necessary
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-        [title]: card
+        [title]: {
+            // TODO can add only one question
+            ["questions"]: [
+                card
+            ]
+        }
     }))
 }
 

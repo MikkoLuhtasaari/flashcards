@@ -24,23 +24,25 @@ class AddCardToDeck extends Component {
 
     submit = () => {
         const {question, answer1, answer2, checked} = this.state;
-        const deckName = this.props.navigation.state.params.deck;
-        const formattedQuestion = {
-            "question": question,
-            "answer1": answer1,
-            "answer2": answer2,
-            "firstAnswerCorrect": checked
+        const title = this.props.navigation.state.params.deck;
+        const card = {
+            [question]: {
+                "answer1": answer1,
+                "answer2": answer2,
+                "firstAnswerCorrect": checked
+            }
         };
         this.setState(() => ({
             question: "",
             answer1: "",
             answer2: ""
         }));
-        console.log("Deckname " + deckName + " and Formatted question " + Object.values(formattedQuestion));
+        console.log("Deckname " + title + " and Formatted question " + Object.values(card));
         this.toHome();
-        // addCardToDeck().then((returnValue) => {
-        //     this.toHome()
-        // });
+        addCardToDeck(title, card).then((returnValue) => {
+            console.log(returnValue);
+            this.toHome()
+        });
 
     };
 
