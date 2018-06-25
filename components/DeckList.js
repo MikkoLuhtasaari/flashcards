@@ -42,7 +42,7 @@ class DeckList extends Component {
                 <Text>DeckList</Text>
                 {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
                         <View key={deck} style={styles.row}>
-                            {console.log(decksAsJSON[deck])}
+                            {/*{console.log(decksAsJSON[deck])}*/}
                             {/*<DeckListItem title={deck} questions={decksAsJSON[deck]}/>*/}
                             <TextButton onPress={() => this.onNavigate(deck)}>{deck}</TextButton>
                         </View>

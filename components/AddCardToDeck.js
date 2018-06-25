@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
 import {black, blue, white} from "../utils/colors";
 import {addCardToDeck} from "../utils/api";
-import {NavigationActions} from "react-navigation"
+import {StackActions, NavigationActions} from "react-navigation"
 
 class AddCardToDeck extends Component {
     state = {
@@ -12,27 +12,32 @@ class AddCardToDeck extends Component {
     };
 
     toHome = () => {
-        console.log("onHome");
-        this.props.navigation.push("Home")
+        this.props.navigation.dispatch(StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Home'})
+            ]
+        }))
     };
 
     submit = () => {
-        console.log("Submit");
         const {question, answer1, answer2} = this.state;
         const deckName = this.props.navigation.state.params.deck;
+        const formattedQuestion = {
+            "question": {
+                "title": question,
+                "answers": {
+                    "answer1": answer1,
+                    "answer2": answer2
+                }
+            }
+        };
         this.setState(() => ({
             question: "",
             answer1: "",
             answer2: ""
         }));
-        const formattedQuestion = {
-            "question": question,
-            "answers": {
-                "answer1": answer1,
-                "answer2": answer2
-            }
-        };
-        console.log("Deckname " + deckName + " and Formatted question " + formattedQuestion);
+        console.log("Deckname " + deckName + " and Formatted question " + formattedQuestion.toString());
         this.toHome();
         // addCardToDeck().then((returnValue) => {
         //     this.toHome()
