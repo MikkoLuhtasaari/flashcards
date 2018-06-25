@@ -3,6 +3,9 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import {white, gray, blue, black} from "../utils/colors"
 import {getDecks, reset} from "../utils/api";
 import DeckListItem from "./DeckListItem"
+import {createStackNavigator} from "react-navigation";
+import AddCardToDeck from "./AddCardToDeck";
+import TextButton from "./TextButton"
 
 class DeckList extends Component {
     state = {};
@@ -19,6 +22,14 @@ class DeckList extends Component {
             }))
     }
 
+    onNavigate(deck){
+        console.log("onNavigate");
+        this.props.navigation.push(
+            'Details',
+            {deck: deck}
+    );
+}
+
     render() {
         const decks = this.state.decks;
         let decksAsJSON = {};
@@ -32,7 +43,8 @@ class DeckList extends Component {
                 {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
                         <View key={deck} style={styles.row}>
                             {console.log(decksAsJSON[deck])}
-                            <DeckListItem title={deck} questions={decksAsJSON[deck]}/>
+                            {/*<DeckListItem title={deck} questions={decksAsJSON[deck]}/>*/}
+                            <TextButton onPress={() => this.onNavigate(deck)}>{deck}</TextButton>
                         </View>
                     )
                 )}

@@ -6,6 +6,7 @@ import {purple, white} from "./utils/colors"
 import DeckList from "./components/DeckList"
 import NewDeck from "./components/NewDeck"
 import {MaterialCommunityIcons, FontAwesome, Ionicons} from "@expo/vector-icons"
+import AddCardToDeck from "./components/AddCardToDeck";
 
 function UdaciStatusBar({backgroundColor, ...props}) {
 
@@ -53,12 +54,25 @@ const Tabs = createBottomTabNavigator({
         }
     });
 
+const DeckListStack = createStackNavigator(
+    {
+        Home: {
+          screen: Tabs
+        },
+        // DeckList: DeckList,
+        Details: AddCardToDeck,
+    },
+    {
+        initialRouteName: 'Home',
+    }
+);
+
 export default class App extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
                 <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-                <Tabs />
+                <DeckListStack />
             </View>
         );
     }
