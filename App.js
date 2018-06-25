@@ -1,6 +1,6 @@
 import React from 'react';
 import {Constants} from "expo"
-import {TabNavigator, createStackNavigator, createMaterialTopTabNavigator} from "react-navigation"
+import {createTabNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator} from "react-navigation"
 import {StyleSheet, Text, View, StatusBar, Platform} from 'react-native';
 import {purple, white} from "./utils/colors"
 import DeckList from "./components/DeckList"
@@ -9,7 +9,6 @@ import {MaterialCommunityIcons, FontAwesome, Ionicons} from "@expo/vector-icons"
 
 function UdaciStatusBar({backgroundColor, ...props}) {
 
-
     return (
         <View style={{backgroundColor, height: Constants.statusBarHeight}}>
             <StatusBar translucent backgroundColor={backgroundColor} {...props} />
@@ -17,7 +16,7 @@ function UdaciStatusBar({backgroundColor, ...props}) {
     )
 }
 
-const Tabs = createMaterialTopTabNavigator({
+const Tabs = createBottomTabNavigator({
         DeckList: {
             screen: DeckList,
             navigationOptions: {
@@ -39,6 +38,7 @@ const Tabs = createMaterialTopTabNavigator({
         },
         tabBarOptions: {
             activeTintColor: Platform.OS === "ios" ? purple : white,
+            showIcon: true,
             style: {
                 height: 56,
                 backgroundColor: Platform.OS === "ios" ? white : purple,
@@ -53,18 +53,12 @@ const Tabs = createMaterialTopTabNavigator({
         }
     });
 
-const MainNavigator = createStackNavigator({
-    Home: {
-        screen: Tabs
-    }
-});
-
 export default class App extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
                 <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-                <MainNavigator/>
+                <Tabs />
             </View>
         );
     }

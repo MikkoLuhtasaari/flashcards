@@ -2,10 +2,10 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import {white, gray, blue, black} from "../utils/colors"
 import {getDecks, reset} from "../utils/api";
+import DeckListItem from "./DeckListItem"
 
 class DeckList extends Component {
-    state = {
-    };
+    state = {};
 
     reset = () => {
         console.log("Reseting");
@@ -21,7 +21,6 @@ class DeckList extends Component {
 
     render() {
         const decks = this.state.decks;
-        console.log(decks);
         let decksAsJSON = {};
         if(decks) {
             console.log(JSON.parse(decks));
@@ -30,9 +29,13 @@ class DeckList extends Component {
         return (
             <View style={styles.container}>
                 <Text>DeckList</Text>
-                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => {
-                    console.log(deck)
-                })}
+                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
+                        <View key={deck} style={styles.row}>
+                            {console.log(decksAsJSON[deck])}
+                            <DeckListItem title={deck} questions={decksAsJSON[deck]}/>
+                        </View>
+                    )
+                )}
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
                     <Text style={{color:blue}}>reset</Text>
                 </TouchableOpacity>
@@ -46,6 +49,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: white
+    },
+    row: {
+        flexDirection: "row",
+        flex: 1
     },
     deckItem: {
         backgroundColor: gray,
