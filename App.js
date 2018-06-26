@@ -9,9 +9,9 @@ import {FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons"
 import DeckView from "./components/DeckView";
 import AddCardToDeck from "./components/AddCardToDeck";
 import Quiz from "./components/Quiz";
+import {getDecks} from "./utils/api";
 
 function UdaciStatusBar({backgroundColor, ...props}) {
-
     return (
         <View style={{backgroundColor, height: Constants.statusBarHeight}}>
             <StatusBar translucent backgroundColor={backgroundColor} {...props} />
@@ -71,11 +71,19 @@ const DeckListStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
+    state = {};
+
+    componentDidMount() {
+        getDecks()
+            .then((decks) => this.setState({
+                decks
+            }))
+    }
     render() {
         return (
             <View style={{flex: 1}}>
                 <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                <DeckListStack/>
+                <DeckListStack screenProps={{decks: this.state.decks}}/>
             </View>
         );
     }

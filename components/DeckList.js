@@ -5,19 +5,10 @@ import {getDecks, reset} from "../utils/api";
 import TextButton from "./TextButton"
 
 class DeckList extends Component {
-    state = {};
-
     reset = () => {
         console.log("Reseting");
         reset()
     };
-
-    componentDidMount() {
-        getDecks()
-            .then((decks) => this.setState({
-                decks
-            }))
-    }
 
     onNavigate(deckTitle, deck) {
         this.props.navigation.push(
@@ -30,7 +21,7 @@ class DeckList extends Component {
     }
 
     render() {
-        const decks = this.state.decks;
+        const decks = this.props.screenProps.decks;
         let decksAsJSON = {};
         if (decks) {
             console.log(JSON.parse(decks));
