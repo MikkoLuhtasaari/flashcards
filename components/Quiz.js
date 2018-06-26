@@ -1,9 +1,6 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
-import {black, blue, gray, white} from "../utils/colors";
-import {addCardToDeck, getDecks} from "../utils/api";
-import {StackActions, NavigationActions} from "react-navigation"
-import {CheckBox} from "react-native-elements"
+import {View, Text, StyleSheet} from "react-native"
+import {black, green, red, white} from "../utils/colors";
 import TextButton from "./TextButton";
 
 class Quiz extends Component {
@@ -19,6 +16,10 @@ class Quiz extends Component {
         }));
     };
 
+    answer = (correct) => {
+      console.log(correct);
+    };
+
     render() {
         const {isFlipped, questionNumber} = this.state;
         const deck = this.props.navigation.state.params.deck;
@@ -28,7 +29,16 @@ class Quiz extends Component {
                 <Text style={styles.title}>{deckTitle}</Text>
                 {isFlipped
                     ? <Text style={styles.qa}>{deck.questions[questionNumber - 1].answer}</Text>
-                    : <Text style={styles.qa}>{deck.questions[questionNumber - 1].question}</Text>}
+                    : <View>
+                        <Text style={styles.qa}>{deck.questions[questionNumber - 1].question}</Text>
+                        <TextButton style={styles.correct} onPress={() => this.answer(true)}>
+                            Correct
+                        </TextButton>
+                        <TextButton style={styles.incorrect} onPress={() => this.answer(false)}>
+                            Incorrect
+                        </TextButton>
+                    </View>
+                }
 
                 <TextButton onPress={this.flipCard}>
                     Flip
@@ -57,6 +67,22 @@ const styles = StyleSheet.create({
         color: black,
         paddingBottom: 30
     },
+    correct: {
+        backgroundColor: green,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 20,
+        color: white,
+        justifyContent: 'flex-start',
+    },
+    incorrect: {
+        backgroundColor: red,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 20,
+        color: white,
+        justifyContent: 'flex-start',
+    }
 });
 
 export default Quiz
