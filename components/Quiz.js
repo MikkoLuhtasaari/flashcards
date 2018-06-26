@@ -7,9 +7,27 @@ import {CheckBox} from "react-native-elements"
 import TextButton from "./TextButton";
 
 class Quiz extends Component {
+    state = {
+        isFlipped: false
+    };
+
+    flipCard = () => {
+        this.setState(() => ({
+            isFlipped: !this.state.isFlipped
+        }));
+    };
+
     render() {
+        const isFlipped = this.state.isFlipped;
         return (
             <View style={styles.container}>
+                {isFlipped
+                    ? <Text>Flipped</Text>
+                    : <Text>Not flipped</Text>}
+
+                <TextButton onPress={this.flipCard}>
+                    Flip
+                </TextButton>
 
             </View>
         )

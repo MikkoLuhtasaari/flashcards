@@ -17,6 +17,15 @@ class DeckView extends Component {
         );
     }
 
+    startQuiz(deckTitle) {
+        this.props.navigation.push(
+            "Quiz",
+            {
+                deckTitle: deckTitle
+            }
+        )
+    }
+
     render() {
         const deck = this.props.navigation.state.params.deck;
         const deckTitle = this.props.navigation.state.params.deckTitle;
@@ -28,7 +37,7 @@ class DeckView extends Component {
                 <TextButton style={styles.addAQuestion} onPress={() => this.addACard(deckTitle)}>
                     Add a question
                 </TextButton>
-                <TextButton style={styles.startAQuiz}>
+                <TextButton style={styles.startAQuiz} onPress={() => this.startQuiz(deckTitle)}>
                     Start a quiz
                 </TextButton>
             </View>
