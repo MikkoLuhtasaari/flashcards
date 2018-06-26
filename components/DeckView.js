@@ -8,12 +8,11 @@ import TextButton from "./TextButton";
 
 class DeckView extends Component {
 
-    addACard(deckTitle, deck) {
+    addACard(deckTitle) {
         this.props.navigation.push(
             'AddACardToDeck',
             {
-                deckTitle: deckTitle,
-                deck: deck
+                deckTitle: deckTitle
             }
         );
     }
@@ -26,7 +25,7 @@ class DeckView extends Component {
                 <Text style={styles.title}>
                     {deckTitle} with {deck.questions.length} cards.
                 </Text>
-                <TextButton style={styles.addAQuestion} onPress={() => this.addACard(deckTitle, deck)}>
+                <TextButton style={styles.addAQuestion} onPress={() => this.addACard(deckTitle)}>
                     Add a question
                 </TextButton>
                 <TextButton style={styles.startAQuiz}>

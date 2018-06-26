@@ -4,17 +4,11 @@ import {white, black, gray, purple} from "../utils/colors";
 import TextButton from "./TextButton"
 
 class DeckListItem extends Component {
-
-    testItem = () => {
-        const {title, questions} = this.props;
-        // console.log("title " + title + " and questions " + questions);
-    };
-
     render() {
         const {title, questions} = this.props;
         return (
             <View style={styles.container}>
-                <TextButton style={{margin: 20}} onPress={this.testItem}>{title}</TextButton>
+                <TextButton style={{margin: 20}}>{title}</TextButton>
                 <Text style={styles.subText}>Cards: {questions.length}</Text>
             </View>
         )

@@ -8,9 +8,7 @@ import {CheckBox} from "react-native-elements"
 class AddCardToDeck extends Component {
     state = {
         question: "Insert question",
-        answer1: "Insert first answer",
-        answer2: "Insert second answer",
-        checked: true
+        answer: "Insert answer"
     };
 
     toHome = () => {
@@ -23,20 +21,18 @@ class AddCardToDeck extends Component {
     };
 
     submit = () => {
-        const {question, answer1, answer2, checked} = this.state;
-        const deckTitle = this.props.navigation.state.params.deck;
+        const {question, answer} = this.state;
+        const deckTitle = this.props.navigation.state.params.deckTitle;
+        console.log("AddCardToDeck " + deckTitle);
         const card = {
             [question]: {
-                "answer1": answer1,
-                "answer2": answer2,
-                "firstAnswerCorrect": checked
+                "answer": answer
             }
         };
 
         this.setState(() => ({
             question: "",
-            answer1: "",
-            answer2: ""
+            answer: ""
         }));
 
         addCardToDeck({deckTitle, card}).then(() => {
@@ -58,26 +54,11 @@ class AddCardToDeck extends Component {
                 />
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(answer1) => this.setState({answer1})}
-                    value={this.state.answer1}
+                    onChangeText={(answer) => this.setState({answer})}
+                    value={this.state.answer}
                     editable={true}
                     autoCorrect={false}
                     clearTextOnFocus={true}
-                />
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(answer2) => this.setState({answer2})}
-                    value={this.state.answer2}
-                    editable={true}
-                    autoCorrect={false}
-                    clearTextOnFocus={true}
-                />
-                <CheckBox
-                    title='Is first answer correct'
-                    checkedIcon='dot-circle-o'
-                    uncheckedIcon='circle-o'
-                    checked={this.state.checked}
-                    onPress={() => this.setState({checked: !this.state.checked})}
                 />
                 <TouchableOpacity onPress={this.submit} style={{backgroundColor: black}}>
                     <Text style={{color: blue}}>Submit</Text>
