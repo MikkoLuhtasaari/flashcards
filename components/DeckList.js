@@ -38,7 +38,9 @@ class DeckList extends Component {
         }
         return (
             <ScrollView style={styles.container}>
+                {/* TODO remove from the final version */}
                 <Text>DeckList</Text>
+                {/* TODO remove from the final version */}
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
                     <Text style={{color:blue}}>reset</Text>
                 </TouchableOpacity>
