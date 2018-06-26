@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from "react-native"
 import {white, black, gray, purple} from "../utils/colors";
 import TextButton from "./TextButton"
 
+// TODO is this component necessary
 class DeckListItem extends Component {
     render() {
         const {title, questions} = this.props;
