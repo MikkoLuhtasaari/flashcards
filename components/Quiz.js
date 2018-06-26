@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet} from "react-native"
 import {black, green, red, white, blue} from "../utils/colors";
 import TextButton from "./TextButton";
+import {NavigationActions, StackActions} from "react-navigation";
 
 class Quiz extends Component {
     state = {
@@ -14,6 +15,15 @@ class Quiz extends Component {
         this.setState(() => ({
             isFlipped: !this.state.isFlipped
         }));
+    };
+
+    toHome = () => {
+        this.props.navigation.dispatch(StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({routeName: 'Home'})
+            ]
+        }))
     };
 
     answer = (correct) => {
@@ -32,12 +42,15 @@ class Quiz extends Component {
     };
 
     render() {
-        const {isFlipped, questionNumber} = this.state;
+        const {isFlipped, questionNumber, correctAnswers} = this.state;
         const deck = this.props.navigation.state.params.deck;
         const deckTitle = this.props.navigation.state.params.deckTitle;
+        const isQuizDone = questionNumber > deck.questions.length;
+        if(!isQuizDone){
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{deckTitle}</Text>
+                <Text style={styles.qa}>{questionNumber}/{deck.questions.length}</Text>
                 {isFlipped
                     ? <Text style={styles.qa}>{deck.questions[questionNumber - 1].answer}</Text>
                     : <View>
@@ -50,13 +63,23 @@ class Quiz extends Component {
                         </TextButton>
                     </View>
                 }
-
                 <TextButton style={styles.flip} onPress={this.flipCard}>
                     Flip
                 </TextButton>
-
             </View>
         )
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>{deckTitle}</Text>
+                    <Text style={styles.qa}>{deck.questions.length}/{deck.questions.length}</Text>
+                    <Text style={styles.qa}>You scored {(correctAnswers / deck.questions.length) * 100}%</Text>
+                    <TextButton style={styles.addAQuestion} onPress={this.toHome}>
+                        Back to main menu
+                    </TextButton>
+                </View>
+            )
+        }
     }
 }
 
@@ -101,7 +124,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: black,
         justifyContent: 'flex-start',
-    }
+    },
+    addAQuestion: {
+        backgroundColor: black,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 20,
+        color: white,
+        justifyContent: 'flex-start',
+    },
 });
 
 export default Quiz
