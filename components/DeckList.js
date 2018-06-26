@@ -22,10 +22,11 @@ class DeckList extends Component {
             }))
     }
 
-    onNavigate(deck){
+    onNavigate(deckTitle, deck){
         this.props.navigation.push(
             'Details',
-            {deck: deck}
+            {deckTitle: deckTitle,
+            deck: deck}
     );
 }
 
@@ -44,10 +45,10 @@ class DeckList extends Component {
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
                     <Text style={{color:blue}}>reset</Text>
                 </TouchableOpacity>
-                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
-                        <View key={deck} style={styles.row}>
-                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deck)}>
-                                {deck} with {decksAsJSON[deck].questions.length} cards.
+                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deckTitle) => (
+                        <View key={deckTitle} style={styles.row}>
+                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deckTitle, decksAsJSON[deckTitle])}>
+                                {deckTitle} with {decksAsJSON[deckTitle].questions.length} cards.
                             </TextButton>
                         </View>
                     )

@@ -7,6 +7,7 @@ import DeckList from "./components/DeckList"
 import NewDeck from "./components/NewDeck"
 import {MaterialCommunityIcons, FontAwesome, Ionicons} from "@expo/vector-icons"
 import AddCardToDeck from "./components/AddCardToDeck";
+import DeckView from "./components/DeckView";
 
 function UdaciStatusBar({backgroundColor, ...props}) {
 
@@ -60,7 +61,7 @@ const DeckListStack = createStackNavigator(
           screen: Tabs
         },
         // DeckList: DeckList,
-        Details: AddCardToDeck,
+        Details: DeckView,
     },
     {
         initialRouteName: 'Home',
