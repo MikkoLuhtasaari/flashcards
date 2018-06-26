@@ -25,9 +25,8 @@ class AddCardToDeck extends Component {
         const deckTitle = this.props.navigation.state.params.deckTitle;
         console.log("AddCardToDeck " + deckTitle);
         const card = {
-            [question]: {
+                "question": question,
                 "answer": answer
-            }
         };
 
         this.setState(() => ({
