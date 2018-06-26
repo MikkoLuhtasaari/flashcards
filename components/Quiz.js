@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {View, Text, StyleSheet} from "react-native"
-import {black, green, red, white} from "../utils/colors";
+import {black, green, red, white, blue} from "../utils/colors";
 import TextButton from "./TextButton";
 
 class Quiz extends Component {
@@ -17,7 +17,18 @@ class Quiz extends Component {
     };
 
     answer = (correct) => {
-      console.log(correct);
+        if (correct) {
+            this.setState(() => ({
+                isFlipped: false,
+                questionNumber: this.state.questionNumber + 1,
+                correctAnswers: this.state.correctAnswers + 1
+            }))
+        } else {
+            this.setState(() => ({
+                isFlipped: false,
+                questionNumber: this.state.questionNumber + 1
+            }))
+        }
     };
 
     render() {
@@ -40,7 +51,7 @@ class Quiz extends Component {
                     </View>
                 }
 
-                <TextButton onPress={this.flipCard}>
+                <TextButton style={styles.flip} onPress={this.flipCard}>
                     Flip
                 </TextButton>
 
@@ -81,6 +92,14 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 20,
         color: white,
+        justifyContent: 'flex-start',
+    },
+    flip: {
+        backgroundColor: blue,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 20,
+        color: black,
         justifyContent: 'flex-start',
     }
 });
