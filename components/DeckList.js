@@ -46,7 +46,9 @@ class DeckList extends Component {
                 </TouchableOpacity>
                 {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
                         <View key={deck} style={styles.row}>
-                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deck)}>{deck}</TextButton>
+                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deck)}>
+                                {deck} with {decksAsJSON[deck].questions.length} cards.
+                            </TextButton>
                         </View>
                     )
                 )}
