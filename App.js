@@ -1,12 +1,11 @@
 import React from 'react';
 import {Constants} from "expo"
-import {createTabNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator} from "react-navigation"
-import {StyleSheet, Text, View, StatusBar, Platform} from 'react-native';
+import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
+import {Platform, StatusBar, View} from 'react-native';
 import {purple, white} from "./utils/colors"
 import DeckList from "./components/DeckList"
 import NewDeck from "./components/NewDeck"
-import {MaterialCommunityIcons, FontAwesome, Ionicons} from "@expo/vector-icons"
-import AddCardToDeck from "./components/AddCardToDeck";
+import {FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons"
 import DeckView from "./components/DeckView";
 
 function UdaciStatusBar({backgroundColor, ...props}) {
