@@ -1,10 +1,7 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native"
-import {white, gray, blue, black} from "../utils/colors"
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {black, blue, gray, white} from "../utils/colors"
 import {getDecks, reset} from "../utils/api";
-import DeckListItem from "./DeckListItem"
-import {createStackNavigator} from "react-navigation";
-import AddCardToDeck from "./AddCardToDeck";
 import TextButton from "./TextButton"
 
 class DeckList extends Component {
@@ -22,18 +19,20 @@ class DeckList extends Component {
             }))
     }
 
-    onNavigate(deckTitle, deck){
+    onNavigate(deckTitle, deck) {
         this.props.navigation.push(
             'Details',
-            {deckTitle: deckTitle,
-            deck: deck}
-    );
-}
+            {
+                deckTitle: deckTitle,
+                deck: deck
+            }
+        );
+    }
 
     render() {
         const decks = this.state.decks;
         let decksAsJSON = {};
-        if(decks) {
+        if (decks) {
             console.log(JSON.parse(decks));
             decksAsJSON = JSON.parse(decks);
         }
@@ -42,12 +41,13 @@ class DeckList extends Component {
                 {/* TODO remove from the final version */}
                 <Text>DeckList</Text>
                 {/* TODO remove from the final version */}
-                <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
-                    <Text style={{color:blue}}>reset</Text>
+                <TouchableOpacity onPress={this.reset} style={{backgroundColor: black}}>
+                    <Text style={{color: blue}}>reset</Text>
                 </TouchableOpacity>
                 {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deckTitle) => (
                         <View key={deckTitle} style={styles.row}>
-                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deckTitle, decksAsJSON[deckTitle])}>
+                            <TextButton style={styles.deckItem}
+                                        onPress={() => this.onNavigate(deckTitle, decksAsJSON[deckTitle])}>
                                 {deckTitle} with {decksAsJSON[deckTitle].questions.length} cards.
                             </TextButton>
                         </View>

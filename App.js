@@ -7,6 +7,7 @@ import DeckList from "./components/DeckList"
 import NewDeck from "./components/NewDeck"
 import {FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons"
 import DeckView from "./components/DeckView";
+import AddCardToDeck from "./components/AddCardToDeck";
 
 function UdaciStatusBar({backgroundColor, ...props}) {
 
@@ -57,10 +58,10 @@ const Tabs = createBottomTabNavigator({
 const DeckListStack = createStackNavigator(
     {
         Home: {
-          screen: Tabs
+            screen: Tabs
         },
-        // DeckList: DeckList,
         Details: DeckView,
+        AddACardToDeck: AddCardToDeck
     },
     {
         initialRouteName: 'Home',
@@ -71,8 +72,8 @@ export default class App extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-                <DeckListStack />
+                <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
+                <DeckListStack/>
             </View>
         );
     }
