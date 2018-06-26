@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native"
 import {white, gray, blue, black} from "../utils/colors"
 import {getDecks, reset} from "../utils/api";
 import DeckListItem from "./DeckListItem"
@@ -37,18 +37,18 @@ class DeckList extends Component {
             decksAsJSON = JSON.parse(decks);
         }
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Text>DeckList</Text>
-                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
-                        <View key={deck} style={styles.row}>
-                            <TextButton onPress={() => this.onNavigate(deck)}>{deck}</TextButton>
-                        </View>
-                    )
-                )}
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor:black}}>
                     <Text style={{color:blue}}>reset</Text>
                 </TouchableOpacity>
-            </View>
+                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deck) => (
+                        <View key={deck} style={styles.row}>
+                            <TextButton style={styles.deckItem} onPress={() => this.onNavigate(deck)}>{deck}</TextButton>
+                        </View>
+                    )
+                )}
+            </ScrollView>
         )
     }
 }
@@ -60,13 +60,16 @@ const styles = StyleSheet.create({
         backgroundColor: white
     },
     row: {
-        flexDirection: "row",
+        alignItems: 'stretch',
+        padding: 20,
         flex: 1
     },
     deckItem: {
         backgroundColor: gray,
         paddingTop: 10,
-        justifyContent: "center"
+        paddingBottom: 10,
+        fontSize: 20,
+        justifyContent: 'flex-start',
     }
 });
 
