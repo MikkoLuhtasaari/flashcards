@@ -8,7 +8,9 @@ import TextButton from "./TextButton";
 
 class Quiz extends Component {
     state = {
-        isFlipped: false
+        isFlipped: false,
+        questionNumber: 1,
+        correctAnswers: 0
     };
 
     flipCard = () => {
@@ -18,12 +20,15 @@ class Quiz extends Component {
     };
 
     render() {
-        const isFlipped = this.state.isFlipped;
+        const {isFlipped, questionNumber} = this.state;
+        const deck = this.props.navigation.state.params.deck;
+        const deckTitle = this.props.navigation.state.params.deckTitle;
         return (
             <View style={styles.container}>
+                <Text style={styles.title}>{deckTitle}</Text>
                 {isFlipped
-                    ? <Text>Flipped</Text>
-                    : <Text>Not flipped</Text>}
+                    ? <Text style={styles.qa}>{deck.questions[questionNumber - 1].answer}</Text>
+                    : <Text style={styles.qa}>{deck.questions[questionNumber - 1].question}</Text>}
 
                 <TextButton onPress={this.flipCard}>
                     Flip
@@ -39,6 +44,18 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: white
+    },
+    title: {
+        textAlign: "center",
+        fontSize: 40,
+        color: black,
+        paddingBottom: 30
+    },
+    qa: {
+        textAlign: "center",
+        fontSize: 30,
+        color: black,
+        paddingBottom: 30
     },
 });
 
