@@ -7,7 +7,7 @@ class DeckListItem extends Component {
 
     testItem = () => {
         const {title, questions} = this.props;
-        console.log("title " + title + " and questions " + questions);
+        // console.log("title " + title + " and questions " + questions);
     };
 
     render() {

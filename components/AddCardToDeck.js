@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
 import {black, blue, white} from "../utils/colors";
-import {addCardToDeck} from "../utils/api";
+import {addCardToDeck, getDecks} from "../utils/api";
 import {StackActions, NavigationActions} from "react-navigation"
 import {CheckBox} from "react-native-elements"
 
@@ -24,7 +24,7 @@ class AddCardToDeck extends Component {
 
     submit = () => {
         const {question, answer1, answer2, checked} = this.state;
-        const title = this.props.navigation.state.params.deck;
+        const deckTitle = this.props.navigation.state.params.deck;
         const card = {
             [question]: {
                 "answer1": answer1,
@@ -32,18 +32,16 @@ class AddCardToDeck extends Component {
                 "firstAnswerCorrect": checked
             }
         };
+
         this.setState(() => ({
             question: "",
             answer1: "",
             answer2: ""
         }));
-        console.log("Deckname " + title + " and Formatted question " + Object.values(card));
-        this.toHome();
-        addCardToDeck(title, card).then((returnValue) => {
-            console.log(returnValue);
+
+        addCardToDeck({deckTitle, card}).then(() => {
             this.toHome()
         });
-
     };
 
     render() {

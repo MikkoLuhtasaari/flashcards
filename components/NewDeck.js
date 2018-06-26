@@ -20,7 +20,7 @@ class NewDeck extends Component {
         this.setState(() => ({
             text: ""
         }));
-        saveDeckTitle(inputText).then((returnValue) => {
+        saveDeckTitle(inputText).then(() => {
             this.toHome()
         });
 
@@ -33,6 +33,7 @@ class NewDeck extends Component {
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(text) => this.setState({text})}
+                    value={this.state.text}
                     editable={true}
                     autoCorrect={false}
                     clearTextOnFocus={true}

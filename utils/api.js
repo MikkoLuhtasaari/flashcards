@@ -6,10 +6,6 @@ export function getDecks() {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
 }
 
-export function getDeck(id) {
-    return AsyncStorage.getItem(DECK_STORAGE_KEY)[id]
-}
-
 export function saveDeckTitle(title) {
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
         [title]: {
@@ -18,15 +14,20 @@ export function saveDeckTitle(title) {
     }))
 }
 
-export function addCardToDeck(title, card) {
-    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-        [title]: {
-            // TODO can add only one question
-            ["questions"]: [
-                card
-            ]
-        }
-    }))
+export function addCardToDeck({deckTitle, card}) {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY, (err, result) => {
+        let decks = JSON.parse(result);
+
+        let newQuestions = JSON.parse(
+            JSON.stringify(decks[deckTitle].questions)
+        );
+        newQuestions.push(card);
+
+        const value = JSON.stringify({
+            [deckTitle]: {questions: newQuestions}
+        });
+        AsyncStorage.mergeItem(DECK_STORAGE_KEY, value)
+    })
 }
 
 export function reset() {
