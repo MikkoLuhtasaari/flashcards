@@ -9,21 +9,16 @@ class NewDeck extends Component {
         text: "Insert deck title here!"
     };
 
-    toHome = () => {
-        this.props.navigation.dispatch(NavigationActions.back({
-            key: "NewDeck"
-        }))
-    };
-
     submit = () => {
         const inputText = this.state.text;
         this.setState(() => ({
             text: ""
         }));
         saveDeckTitle(inputText).then(() => {
-            this.toHome()
+            this.props.navigation.dispatch(NavigationActions.back({
+                key: "NewDeck"
+            }))
         });
-
     };
 
     render() {
