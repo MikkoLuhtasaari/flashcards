@@ -4,6 +4,8 @@ This project is the third project for Udacitys React Nanodegree.
 
 User can create his own flashcards for studying and the app persists them in local storage.
 
+If the user hasn't studied in 24 hours the application sends a notification as a reminder to study
+
 The [Create React Native App](https://github.com/react-community/create-react-native-app) was used to bootstrap this project.
 
 ## Installing and starting the server
