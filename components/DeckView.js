@@ -33,7 +33,11 @@ class DeckView extends Component {
         return (
             <View>
                 <Text style={styles.title}>
-                    {deckTitle} with {deck.questions.length} cards.
+                    {deckTitle} with
+                    {deck.questions && deck.questions.length > 0
+                        ? deck.questions.length
+                        : 0}
+                     cards.
                 </Text>
                 <TextButton style={styles.addAQuestion} onPress={() => this.addACard(deckTitle)}>
                     Add a question
