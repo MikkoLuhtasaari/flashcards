@@ -1,9 +1,6 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
-import {black, blue, gray, white} from "../utils/colors";
-import {addCardToDeck, getDecks} from "../utils/api";
-import {StackActions, NavigationActions} from "react-navigation"
-import {CheckBox} from "react-native-elements"
+import {StyleSheet, Text, View} from "react-native"
+import {black, white} from "../utils/colors";
 import TextButton from "./TextButton";
 
 class DeckView extends Component {
