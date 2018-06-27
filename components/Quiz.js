@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet} from "react-native"
 import {black, green, red, white, blue} from "../utils/colors";
 import TextButton from "./TextButton";
-import {NavigationActions, StackActions} from "react-navigation";
+import {NavigationActions} from "react-navigation";
 
 class Quiz extends Component {
     state = {
@@ -18,11 +18,14 @@ class Quiz extends Component {
     };
 
     toHome = () => {
-        this.props.navigation.dispatch(StackActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({routeName: 'Home'})
-            ]
+        this.props.navigation.dispatch(NavigationActions.back({}))
+    };
+
+    startOver = () => {
+        this.setState(() => ({
+            isFlipped: false,
+            questionNumber: 1,
+            correctAnswers: 0
         }))
     };
 
@@ -74,8 +77,11 @@ class Quiz extends Component {
                     <Text style={styles.title}>{deckTitle}</Text>
                     <Text style={styles.qa}>{deck.questions.length}/{deck.questions.length}</Text>
                     <Text style={styles.qa}>You scored {(correctAnswers / deck.questions.length) * 100}%</Text>
-                    <TextButton style={styles.addAQuestion} onPress={this.toHome}>
-                        Back to main menu
+                    <TextButton style={styles.backToDeck} onPress={this.toHome}>
+                        Back to deck
+                    </TextButton>
+                    <TextButton style={styles.startAQuiz} onPress={this.startOver}>
+                        Try again
                     </TextButton>
                 </View>
             )
@@ -125,7 +131,7 @@ const styles = StyleSheet.create({
         color: black,
         justifyContent: 'flex-start',
     },
-    addAQuestion: {
+    backToDeck: {
         backgroundColor: black,
         paddingTop: 10,
         paddingBottom: 10,
@@ -133,6 +139,14 @@ const styles = StyleSheet.create({
         color: white,
         justifyContent: 'flex-start',
     },
+    startAQuiz: {
+        backgroundColor: green,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 20,
+        color: black,
+        justifyContent: 'flex-start',
+    }
 });
 
 export default Quiz
