@@ -1,8 +1,9 @@
-import React, {Component} from "react"
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native"
-import {black, blue, gray, white} from "../utils/colors"
+import React, {Component} from "react";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {black, blue, gray, white} from "../utils/colors";
 import {getDecks, reset} from "../utils/api";
-import TextButton from "./TextButton"
+import TextButton from "./TextButton";
+import {setLocalNotification} from '../utils/helpers';
 
 class DeckList extends Component {
     state = {};
@@ -11,7 +12,8 @@ class DeckList extends Component {
         getDecks()
             .then((decks) => this.setState({
                 decks
-            }))
+            }));
+        setLocalNotification()
     }
     reset = () => {
         console.log("Reseting");

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from "react-native"
 import {black, green, red, white, blue} from "../utils/colors";
 import TextButton from "./TextButton";
 import {NavigationActions} from "react-navigation";
+import {clearLocalNotification, setLocalNotification} from "../utils/helpers";
 
 class Quiz extends Component {
     state = {
@@ -44,6 +45,11 @@ class Quiz extends Component {
         }
     };
 
+    setNotifications = () => {
+        clearLocalNotification()
+            .then(setLocalNotification)
+    };
+
     render() {
         const {isFlipped, questionNumber, correctAnswers} = this.state;
         const deck = this.props.navigation.state.params.deck;
@@ -72,6 +78,7 @@ class Quiz extends Component {
             </View>
         )
         } else {
+            this.setNotifications();
             return (
                 <View style={styles.container}>
                     <Text style={styles.title}>{deckTitle}</Text>
