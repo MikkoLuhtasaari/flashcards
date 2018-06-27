@@ -71,19 +71,12 @@ const DeckListStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
-    state = {};
-
-    componentDidMount() {
-        getDecks()
-            .then((decks) => this.setState({
-                decks
-            }))
-    }
     render() {
         return (
             <View style={{flex: 1}}>
                 <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                <DeckListStack screenProps={{decks: this.state.decks}}/>
+                <DeckListStack/>
+                {/*<DeckListStack screenProps={{decks: this.state.decks}}/>*/}
             </View>
         );
     }

@@ -5,6 +5,14 @@ import {getDecks, reset} from "../utils/api";
 import TextButton from "./TextButton"
 
 class DeckList extends Component {
+    state = {};
+
+    componentDidMount() {
+        getDecks()
+            .then((decks) => this.setState({
+                decks
+            }))
+    }
     reset = () => {
         console.log("Reseting");
         reset()
@@ -21,7 +29,7 @@ class DeckList extends Component {
     }
 
     render() {
-        const decks = this.props.screenProps.decks;
+        const decks = this.state.decks;
         let decksAsJSON = {};
         if (decks) {
             console.log(JSON.parse(decks));
@@ -29,8 +37,6 @@ class DeckList extends Component {
         }
         return (
             <ScrollView style={styles.container}>
-                {/* TODO remove from the final version */}
-                <Text>DeckList</Text>
                 {/* TODO remove from the final version */}
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor: black}}>
                     <Text style={{color: blue}}>reset</Text>
