@@ -2,7 +2,6 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
 import {black, blue, white} from "../utils/colors";
 import {saveDeckTitle} from "../utils/api";
-import {NavigationActions} from "react-navigation"
 
 class NewDeck extends Component {
     state = {
@@ -15,9 +14,17 @@ class NewDeck extends Component {
             text: ""
         }));
         saveDeckTitle(inputText).then(() => {
-            this.props.navigation.dispatch(NavigationActions.back({
-                key: "NewDeck"
-            }))
+            this.props.navigation.push(
+                'Details',
+                {
+                    deckTitle: inputText,
+                    deck: {
+                        [inputText]: {
+                            ["questions"]: []
+                        }
+                    }
+                }
+            );
         });
     };
 
@@ -33,8 +40,8 @@ class NewDeck extends Component {
                     autoCorrect={false}
                     clearTextOnFocus={true}
                 />
-                <TouchableOpacity onPress={this.submit} style={{backgroundColor:black}}>
-                    <Text style={{color:blue}}>Submit</Text>
+                <TouchableOpacity onPress={this.submit} style={{backgroundColor: black}}>
+                    <Text style={{color: blue}}>Submit</Text>
                 </TouchableOpacity>
             </View>
         )
