@@ -2,24 +2,33 @@ import React, {Component} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
 import {black, blue, white} from "../utils/colors";
 import {saveDeckTitle} from "../utils/api";
+import {connect} from 'react-redux';
+import {getDecks, addDeck} from "../actions/index.js";
 
 class NewDeck extends Component {
+    componentDidMount(){
+        console.log("Before getDecks");
+        this.props.getDecks();
+        console.log("After getDecks");
+    }
+
     state = {
         text: "Insert deck title here!"
     };
 
     submit = () => {
-        const inputText = this.state.text;
+        const title = this.state.text;
         this.setState(() => ({
             text: ""
         }));
-        saveDeckTitle(inputText).then(() => {
+        this.props.addDeck(title);
+        saveDeckTitle(title).then(() => {
             this.props.navigation.push(
                 'Details',
                 {
-                    deckTitle: inputText,
+                    deckTitle: title,
                     deck: {
-                        [inputText]: {
+                        [title]: {
                             ["questions"]: []
                         }
                     }
@@ -61,4 +70,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default NewDeck
+function mapStateToProps({decks}) {
+    return {
+        decks,
+    }
+}
+
+export default connect(mapStateToProps, {getDecks, addDeck})(NewDeck)

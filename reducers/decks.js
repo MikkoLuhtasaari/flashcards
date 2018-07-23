@@ -6,7 +6,7 @@ const decks = (state = {}, action) => {
         case ACTIONS.ADD_DECK:
             return {
                 ...state,
-                [action.question.title]: action.question
+                [action.title]: action.title
             };
 
         case ACTIONS.ADD_CARD:
@@ -15,9 +15,8 @@ const decks = (state = {}, action) => {
         case ACTIONS.GET_DECKS:
             return {
                 ...state,
-                ...JSON.parse(action.decks)
+                ...action.decks
             };
-
 
         default:
             return state;
