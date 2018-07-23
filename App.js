@@ -9,7 +9,11 @@ import {FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons"
 import DeckView from "./components/DeckView";
 import AddCardToDeck from "./components/AddCardToDeck";
 import Quiz from "./components/Quiz";
-import {getDecks} from "./utils/api";
+import {setLocalNotification} from "./utils/helpers";
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
+import reducers from './reducers/index';
+import thunk from 'redux-thunk';
 
 function UdaciStatusBar({backgroundColor, ...props}) {
     return (
@@ -71,13 +75,20 @@ const DeckListStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
+    componentDidMount() {
+        setLocalNotification()
+    }
+
+
     render() {
+        const store = createStore(reducers, applyMiddleware(thunk));
         return (
-            <View style={{flex: 1}}>
-                <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                <DeckListStack/>
-                {/*<DeckListStack screenProps={{decks: this.state.decks}}/>*/}
-            </View>
+            <Provider store={store}>
+                <View style={{flex: 1}}>
+                    <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
+                    <DeckListStack/>
+                </View>
+            </Provider>
         );
     }
 }
