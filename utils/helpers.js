@@ -28,10 +28,10 @@ export function setLocalNotification() {
     AsyncStorage.getItem(NOTIFICATION_KEY)
         .then(JSON.parse)
         .then((data) => {
-            if( data === null) {
+            if (data === null) {
                 Permissions.askAsync(Permissions.NOTIFICATIONS)
                     .then(({status}) => {
-                        if(status === "granted") {
+                        if (status === "granted") {
                             Notifications.cancelAllScheduledNotificationsAsync();
 
                             let tomorrow = new Date();
