@@ -12,11 +12,6 @@ class DeckList extends Component {
         this.props.getDecksAction();
     }
 
-    // TODO Remove from the final version
-    reset = () => {
-        reset();
-    };
-
     onNavigate(deckTitle, deck) {
         this.props.navigation.push(
             'Details',
@@ -32,10 +27,6 @@ class DeckList extends Component {
 
         return (
             <ScrollView style={styles.container}>
-                {/* TODO remove from the final version */}
-                <TouchableOpacity onPress={this.reset} style={{backgroundColor: black}}>
-                    <Text style={{color: blue}}>reset</Text>
-                </TouchableOpacity>
                 {Object.keys(decks).length !== 0 && Object.keys(decks).map((deckTitle) => (
                         <View key={deckTitle} style={styles.row}>
                             <TextButton style={styles.deckItem}
