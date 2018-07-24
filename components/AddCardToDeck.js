@@ -1,9 +1,10 @@
 import React, {Component} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
+import {connect} from 'react-redux';
 import {black, blue, white} from "../utils/colors";
 import {addCardToDeck, getDecks} from "../utils/api";
 import {StackActions, NavigationActions} from "react-navigation"
-import {CheckBox} from "react-native-elements"
+import {addCardAction} from "../actions";
 
 class AddCardToDeck extends Component {
     state = {
@@ -23,7 +24,6 @@ class AddCardToDeck extends Component {
     submit = () => {
         const {question, answer} = this.state;
         const deckTitle = this.props.navigation.state.params.deckTitle;
-        console.log("AddCardToDeck " + deckTitle);
         const card = {
                 "question": question,
                 "answer": answer
@@ -34,6 +34,8 @@ class AddCardToDeck extends Component {
             answer: ""
         }));
 
+        this.props.addCardAction(deckTitle, card);
+
         addCardToDeck({deckTitle, card}).then(() => {
             this.toHome()
         });
@@ -42,7 +44,7 @@ class AddCardToDeck extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Title here!</Text>
+                <Text style={styles.title}>Insert question and answer below</Text>
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(question) => this.setState({question})}
@@ -80,4 +82,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AddCardToDeck
+function mapStateToProps({decks}) {
+    return {
+        decks: decks
+    }
+}
+
+export default connect(mapStateToProps,{addCardAction})(AddCardToDeck)
