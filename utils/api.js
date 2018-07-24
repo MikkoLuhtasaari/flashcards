@@ -26,7 +26,6 @@ export function saveDeckTitle(title) {
 export function addCardToDeck({deckTitle, card}) {
     return AsyncStorage.getItem(DECK_STORAGE_KEY).then(result => {
         let decks = JSON.parse(result);
-        console.log(deckTitle);
 
         let newQuestions = JSON.parse(
             JSON.stringify(decks[deckTitle].questions)
