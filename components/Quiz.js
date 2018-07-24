@@ -55,28 +55,28 @@ class Quiz extends Component {
         const deck = this.props.navigation.state.params.deck;
         const deckTitle = this.props.navigation.state.params.deckTitle;
         const isQuizDone = questionNumber > deck.questions.length;
-        if(!isQuizDone){
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>{deckTitle}</Text>
-                <Text style={styles.qa}>{questionNumber}/{deck.questions.length}</Text>
-                {isFlipped
-                    ? <Text style={styles.qa}>{deck.questions[questionNumber - 1].answer}</Text>
-                    : <View>
-                        <Text style={styles.qa}>{deck.questions[questionNumber - 1].question}</Text>
-                        <TextButton style={styles.correct} onPress={() => this.answer(true)}>
-                            Correct
-                        </TextButton>
-                        <TextButton style={styles.incorrect} onPress={() => this.answer(false)}>
-                            Incorrect
-                        </TextButton>
-                    </View>
-                }
-                <TextButton style={styles.flip} onPress={this.flipCard}>
-                    Flip
-                </TextButton>
-            </View>
-        )
+        if (!isQuizDone) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>{deckTitle}</Text>
+                    <Text style={styles.qa}>{questionNumber}/{deck.questions.length}</Text>
+                    {isFlipped
+                        ? <Text style={styles.qa}>{deck.questions[questionNumber - 1].answer}</Text>
+                        : <View>
+                            <Text style={styles.qa}>{deck.questions[questionNumber - 1].question}</Text>
+                            <TextButton style={styles.correct} onPress={() => this.answer(true)}>
+                                Correct
+                            </TextButton>
+                            <TextButton style={styles.incorrect} onPress={() => this.answer(false)}>
+                                Incorrect
+                            </TextButton>
+                        </View>
+                    }
+                    <TextButton style={styles.flip} onPress={this.flipCard}>
+                        Flip
+                    </TextButton>
+                </View>
+            )
         } else {
             this.setNotifications();
             return (
