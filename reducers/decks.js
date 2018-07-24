@@ -27,12 +27,6 @@ const decks = (state = {}, action) => {
                 ...temp
             };
 
-        case ACTIONS.RESET_DECKS:
-            return {
-                ...state,
-                decks: {}
-            };
-
         default:
             return state;
     }
