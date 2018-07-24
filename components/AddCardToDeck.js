@@ -1,9 +1,9 @@
 import React, {Component} from "react"
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native"
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native"
 import {connect} from 'react-redux';
 import {black, blue, white} from "../utils/colors";
-import {addCardToDeck, getDecks} from "../utils/api";
-import {StackActions, NavigationActions} from "react-navigation"
+import {addCardToDeck} from "../utils/api";
+import {NavigationActions, StackActions} from "react-navigation"
 import {addCardAction} from "../actions";
 
 class AddCardToDeck extends Component {
@@ -25,8 +25,8 @@ class AddCardToDeck extends Component {
         const {question, answer} = this.state;
         const deckTitle = this.props.navigation.state.params.deckTitle;
         const card = {
-                "question": question,
-                "answer": answer
+            "question": question,
+            "answer": answer
         };
 
         this.setState(() => ({
@@ -88,4 +88,4 @@ function mapStateToProps({decks}) {
     }
 }
 
-export default connect(mapStateToProps,{addCardAction})(AddCardToDeck)
+export default connect(mapStateToProps, {addCardAction})(AddCardToDeck)
