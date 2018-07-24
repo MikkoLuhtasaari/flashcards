@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 import {black, blue, gray, white} from "../utils/colors";
-import {getDecks, reset} from "../utils/api";
-import {getDecksAction, resetDecksAction} from "../actions";
+import {reset} from "../utils/api";
+import {getDecksAction} from "../actions";
 import TextButton from "./TextButton";
 
 class DeckList extends Component {
@@ -15,8 +14,7 @@ class DeckList extends Component {
 
     // TODO Remove from the final version
     reset = () => {
-        console.log("Reseting");
-        this.props.resetDecksAction();
+        reset();
     };
 
     onNavigate(deckTitle, deck) {
@@ -31,12 +29,7 @@ class DeckList extends Component {
 
     render() {
         const {decks} = this.props;
-        console.log(Object.keys(decks));
-        if (decks && Object.keys(decks).length > 0) {
-            for(let deckTitle in decks) {
-                console.log(decks[deckTitle]);
-            }
-        }
+
         return (
             <ScrollView style={styles.container}>
                 {/* TODO remove from the final version */}
@@ -83,10 +76,9 @@ function mapStateToProps({decks}) {
     }
 }
 
-function mapDispatchToProps (dispatch, {navigation}) {
+function mapDispatchToProps(dispatch, {navigation}) {
     return {
-        getDecksAction: () => dispatch(getDecksAction()),
-        resetDecksAction: () => dispatch(resetDecksAction())
+        getDecksAction: () => dispatch(getDecksAction())
     }
 }
 
