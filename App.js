@@ -78,8 +78,7 @@ export default class App extends React.Component {
     componentDidMount() {
         setLocalNotification()
     }
-
-
+    
     render() {
         const store = createStore(reducers, applyMiddleware(thunk));
         return (

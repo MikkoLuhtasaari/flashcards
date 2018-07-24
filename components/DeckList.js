@@ -1,21 +1,22 @@
 import React, {Component} from "react";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import {black, blue, gray, white} from "../utils/colors";
 import {getDecks, reset} from "../utils/api";
+import {getDecksAction, resetDecksAction} from "../actions";
 import TextButton from "./TextButton";
 
 class DeckList extends Component {
-    state = {};
 
     componentDidMount() {
-        getDecks()
-            .then((decks) => this.setState({
-                decks
-            }));
+        this.props.getDecksAction();
     }
+
+    // TODO Remove from the final version
     reset = () => {
         console.log("Reseting");
-        reset()
+        this.props.resetDecksAction();
     };
 
     onNavigate(deckTitle, deck) {
@@ -29,11 +30,11 @@ class DeckList extends Component {
     }
 
     render() {
-        const decks = this.state.decks;
-        let decksAsJSON = {};
-        if (decks) {
-            console.log(JSON.parse(decks));
-            decksAsJSON = JSON.parse(decks);
+        const {decks} = this.props;
+        if (decks && Object.keys(decks).length > 0) {
+            for(let deckTitle in decks) {
+                console.log(decks[deckTitle]);
+            }
         }
         return (
             <ScrollView style={styles.container}>
@@ -41,11 +42,11 @@ class DeckList extends Component {
                 <TouchableOpacity onPress={this.reset} style={{backgroundColor: black}}>
                     <Text style={{color: blue}}>reset</Text>
                 </TouchableOpacity>
-                {Object.keys(decksAsJSON).length !== 0 && Object.keys(decksAsJSON).map((deckTitle) => (
+                {Object.keys(decks).length !== 0 && Object.keys(decks).map((deckTitle) => (
                         <View key={deckTitle} style={styles.row}>
                             <TextButton style={styles.deckItem}
-                                        onPress={() => this.onNavigate(deckTitle, decksAsJSON[deckTitle])}>
-                                {deckTitle} with {decksAsJSON[deckTitle].questions.length} cards.
+                                        onPress={() => this.onNavigate(deckTitle, decks[deckTitle])}>
+                                {deckTitle} with {decks[deckTitle].questions.length} cards.
                             </TextButton>
                         </View>
                     )
@@ -75,4 +76,17 @@ const styles = StyleSheet.create({
     }
 });
 
-export default DeckList
+function mapStateToProps({ decks }) {
+    return {
+        decks
+    }
+}
+
+function mapDispatchToProps (dispatch, { navigation }) {
+    return {
+        getDecksAction: () => dispatch(getDecksAction()),
+        resetDecksAction: () => dispatch(resetDecksAction())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
