@@ -31,6 +31,7 @@ class DeckList extends Component {
 
     render() {
         const {decks} = this.props;
+        console.log(Object.keys(decks));
         if (decks && Object.keys(decks).length > 0) {
             for(let deckTitle in decks) {
                 console.log(decks[deckTitle]);
@@ -76,13 +77,13 @@ const styles = StyleSheet.create({
     }
 });
 
-function mapStateToProps({ decks }) {
+function mapStateToProps({decks}) {
     return {
         decks
     }
 }
 
-function mapDispatchToProps (dispatch, { navigation }) {
+function mapDispatchToProps (dispatch, {navigation}) {
     return {
         getDecksAction: () => dispatch(getDecksAction()),
         resetDecksAction: () => dispatch(resetDecksAction())

@@ -1,10 +1,8 @@
 import {ACTIONS} from '../actions';
 
 const decks = (state = {}, action) => {
-    console.log("Action: " + Object.keys(action));
     switch (action.type) {
         case ACTIONS.ADD_DECK:
-            console.log(action.deck);
             return {
                 ...state,
                 [action.deck]: {
@@ -23,10 +21,10 @@ const decks = (state = {}, action) => {
             };
 
         case ACTIONS.GET_DECKS:
-            console.log(action.decks);
+            let temp = JSON.parse(action.decks);
             return {
                 ...state,
-                ...action.decks
+                ...temp
             };
 
         case ACTIONS.RESET_DECKS:
