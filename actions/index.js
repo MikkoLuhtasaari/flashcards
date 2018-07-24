@@ -29,7 +29,3 @@ export function getDecksAction() {
             .then((decks) => { dispatch(getDecksActionHelper(decks) ) } )
     }
 }
-
-export const resetDecksAction = () => ({
-    type: ACTIONS.RESET_DECKS
-});
