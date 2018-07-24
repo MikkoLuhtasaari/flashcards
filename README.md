@@ -10,9 +10,19 @@ The [Create React Native App](https://github.com/react-community/create-react-na
 
 ## Installing and starting the server
 
-* install all project dependencies with `npm install`
+* Clone the repository with `git clone https://github.com/MikkoLuhtasaari/flashcards.git`
 
-* start the development server with `npm start`
+* Install all project dependencies with `npm install`
+
+* Open Expo XDE and open the project folder
+
+* With Expo XDE you can either
+    * Publish
+        * Publishes your app to Expo Repository
+    * Share
+        * Open application from QR code on real device
+    * Device
+        * Share a connection to emulator via WebSocket
 
 ## Testing information
 
